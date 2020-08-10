@@ -1,12 +1,12 @@
 //----------  variables
 //------------------------------------------------------------------------------
 
-$font-default: Helvetica, sans-serif;
-$font-default-light-italic: 'Helvetica-light-italic, sans-serif';
-$font-default-italic: 'Helvetica-italic, sans-serif';
+$font-default: Helvetica;
+$font-default-light-italic: 'Helvetica-light-italic';
+$font-default-italic: 'Helvetica-italic';
 $font-default-light: 'Helvetica-light';
-$font-default-bold: 'Helvetica-bold, sans-serif';
-$gotham: 'Gotham, sans-serif';
+$font-default-bold: 'Helvetica-bold';
+$gotham: 'Gotham';
 
 // Colors
 $white: #fff;
@@ -61,7 +61,8 @@ $grid-breakpoints: (
 	sm: 576px,
 	md: 768px,
 	lg: 992px,
-	xl: 1200px
+	xl: 1025px,
+	xxl: 1441px
 ) !default;
 
 //----------  Grid containers

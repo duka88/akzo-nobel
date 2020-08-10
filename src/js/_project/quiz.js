@@ -17,21 +17,23 @@ const quiz = {
 	$quizStep1: document.querySelector('.js-step1'),
 	$quizStep2: document.querySelector('.js-step2'),
 	$quizStep3: document.querySelector('.js-step3'),
+	check: 'assets/images/icons/check.png',
+	checkActiv: 'assets/images/icons/check-next.png',
 	questionNo: 1,
 	counter: 1,
 	down: false,
-	rotate: 45,
 	stroke: 677,
 	procide: false,
-	mouseY: 0,
-	mouseX: 0,
+	max: 324,
+	min: 36,
+	step: 36,
 	questions: [],
 	currentQuestion: {},
 	answers: {answers: [], results: {}, layout: null},
 
 	init: function() {
 		this.fetchQuestions();
-		this.sliderMouseEvents();
+		this.sliderEvents();
 		this.nexQuestion();
 	},
 
@@ -101,12 +103,11 @@ const quiz = {
 		});
 	},
 
-	sliderMouseEvents: function() {
+	sliderEvents: function() {
 		this.$quizSlider.addEventListener('mousedown', (e) => {
 			this.down = true;
-			this.mouseY = e.clientY;
-			this.mouseX = e.clientX;
 			this.procideCheck(false);
+			console.log(e.clientX, e.clientY);
 		});
 
 		this.$quizSlider.addEventListener('mouseup', () => {
@@ -123,56 +124,76 @@ const quiz = {
 
 		this.$quizSlider.addEventListener('mousemove', (e) => {
 			if (this.down) {
-				this.moveLogic(e.clientX, e.clientY);
+				this.changeCounter(e.clientX, e.clientY);
+			}
+		});
+
+		this.$quizSlider.addEventListener('touchstart', () => {
+			this.down = true;
+			this.procideCheck(false);
+		});
+
+		this.$quizSlider.addEventListener('touchend', () => {
+			this.down = false;
+			this.procideCheck(true);
+		});
+
+		this.$quizSlider.addEventListener('touchmove', (e) => {
+			if (this.down) {
+				this.changeCounter(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
 			}
 		});
 	},
 
-	moveLogic: function(moveX, moveY) {
-		const calcY = Math.round(this.mouseY - moveY);
-		const calcX = Math.round(this.mouseX - moveX);
-		if (this.counter >= 1 && this.counter < 4) {
-			if (calcY > 30) {
-				this.mouseY = moveY;
-				this.counter++;
-				this.rotate += 33.75;
-				this.stroke -= 80;
-			} else if (calcY < -30 && this.counter > 1) {
-				this.mouseY = moveY;
-				this.counter--;
-				this.rotate -= 33.75;
-				this.stroke += 80;
-			}
-		} else if (this.counter >= 4 && this.counter < 7) {
-			if (calcX < -30 && this.counter < 7) {
-				this.mouseX = moveX;
-				this.counter++;
-				this.rotate += 33.75;
-				this.stroke -= 80;
-			} else if (calcX > 30 && this.counter >= 4) {
-				this.mouseX = moveX;
-				this.counter--;
-				this.rotate -= 33.75;
-				this.stroke += 80;
-			}
-		} else if (this.counter <= 9) {
-			if (calcY < -30 && this.counter < 9) {
-				this.mouseY = moveY;
-				this.counter++;
-				this.rotate += 33.75;
-				this.stroke -= 80;
-			} else if (calcY > 30) {
-				this.mouseY = moveY;
-				this.counter--;
-				this.rotate -= 33.75;
-				this.stroke += 80;
-			}
-		}
-		this.changeCounter();
+	getCenter: function(element) {
+		const rect = element.getBoundingClientRect();
+		return [
+			rect.left + (rect.width / 2),
+			rect.top + (rect.height / 2),
+		];
 	},
 
-	changeCounter() {
-		this.$quizSlider.style.transform = `rotate(${this.rotate}deg)`;
+	radToDeg: function(rad) {
+		return rad * (180 / Math.PI);
+	},
+
+	angle: function(mx, my) {
+		const center = this.getCenter(this.$quizSlider);
+		const x = mx - center[0];
+		const y = my - center[1];
+		let deg = this.radToDeg(Math.atan2(x, y));
+		if (deg < 0) {
+			deg += 360;
+		} else if (deg > 336) {
+			deg = 336;
+		} else if (deg < 30) {
+			deg = 30;
+		}
+		return deg;
+	},
+
+	normalize: function(degree) {
+		const n = Math.max(this.min, Math.min(degree, this.max));
+		const high = Math.ceil(n / this.step);
+		let val;
+		this.counter = 10 - high;
+		this.stroke = 667 - (80 * (this.counter - 1));
+		if (this.counter > 0) {
+			if (this.counter === 10) {
+				val = this.max;
+			} else {
+				val = high * this.step;
+			}
+		} else {
+			val = this.min;
+		}
+		return val;
+	},
+
+	changeCounter(x, y) {
+		const deg = this.angle(x, y);
+		console.log(this.normalize(deg));
+		this.$quizSlider.style.transform = `rotate(-${this.normalize(deg)}deg)`;
 		this.$quizProgresBar.style.strokeDashoffset = this.stroke + 'px';
 		this.$quizCounter.innerText = this.counter;
 		this.$quizDots.forEach((item, index)=>{
@@ -185,7 +206,7 @@ const quiz = {
 
 	procideCheck: function(done) {
 		if (!done) {
-			this.$quizIcon.src = this.$quizIcon.src.replace('-next.png', '.png');
+			this.$quizIcon.src = this.check;
 			this.procide = false;
 			this.$quizDotsSmall.forEach((item, index)=>{
 				item.classList.remove('guiz__dot-active');
@@ -197,7 +218,7 @@ const quiz = {
 			this.$quizDotsSmall.forEach((item)=>{
 				item.classList.add('guiz__dot-active');
 			});
-			this.$quizIcon.src = this.$quizIcon.src.replace('.png', '-next.png');
+			this.$quizIcon.src = this.checkActiv;
 			this.procide = true;
 		}
 	},
@@ -290,12 +311,9 @@ const quiz = {
 	resetQuestion: function() {
 		this.counter = 1;
 		this.down = false;
-		this.rotate = 45;
 		this.stroke = 677;
 		this.procide = false;
-		this.mouseY = 0;
-		this.mouseX = 0;
-		this.$quizSlider.style.transform = `rotate(${this.rotate}deg)`;
+		this.$quizSlider.style.transform = 'rotate(-324deg)';
 		this.$quizProgresBar.style.strokeDashoffset = this.stroke + 'px';
 		this.$quizIcon.src = this.$quizIcon.src.replace('-next.png', '.png');
 		this.$quizDotsSmall.forEach((item)=>{
