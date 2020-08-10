@@ -1,0 +1,81 @@
+//----------  variables
+//------------------------------------------------------------------------------
+
+$font-default: Helvetica, sans-serif;
+$font-default-light-italic: 'Helvetica-light-italic, sans-serif';
+$font-default-italic: 'Helvetica-italic, sans-serif';
+$font-default-light: 'Helvetica-light';
+$font-default-bold: 'Helvetica-bold, sans-serif';
+$gotham: 'Gotham, sans-serif';
+
+// Colors
+$white: #fff;
+$black: #000;
+$black-2: #3f2f2b;
+$orange: #f1592a;
+$grey: #ccc;
+$brown: #815f5f;
+$brown-dark: #524343;
+$brown-2: #dbbeb6;
+$brown-3: #9c8383;
+$stauts-bg-1: #e0caca;
+// gradient colors 1
+$brown-shadow-1: #674c4d;
+$button-gradient-1: linear-gradient(180deg, #815f5f -126.28%, #805e5f 100%);
+$inner-button-gradient-1: linear-gradient(180deg, #bd9393 0%, #805e5f 100%);
+$circle-wrap-gradient-1: linear-gradient(180deg, #c29898 0%, #805e5f 100%);
+$circle-gradient-1: linear-gradient(180deg, #c29898 0%, #805e5f 100%);
+$circle-small-gradient-1: linear-gradient(0deg, #bc9293 -57.65%, #815f5f 100%);
+// gradient colors 1
+$brown-shadow-2: #cfada4;
+$button-gradient-2: linear-gradient(180deg, #e2c4bc -126.28%, #dbbeb6 100%);
+$inner-button-gradient-2: linear-gradient(180deg, #ebd2cb 0%, #dbbeb6 100%);
+$circle-wrap-gradient-2: linear-gradient(180deg, #efd7d0 0%, #dbbeb6 100%);
+$circle-gradient-2: linear-gradient(180deg, #f0d8d1 0%, #dcbfb7 100%);
+$circle-small-gradient-2: linear-gradient(0deg, #e3c5bd -57.65%, #dbbeb6 100%);
+// gradient colors 1
+$brown-shadow-3: #856d6d;
+$button-gradient-3: linear-gradient(180deg, #dfc9c9 -126.28%, #9d8686 100%);
+$inner-button-gradient-3: linear-gradient(180deg, #d9c3c3 0%, #a78e8e 100%);
+$circle-wrap-gradient-3: linear-gradient(180deg, #e0caca 0%, #a18888 100%);
+$circle-gradient-3: linear-gradient(180deg, #dfc9c9 0%, #a48b8b 100%);
+$circle-small-gradient-3: linear-gradient(0deg, #eadada -57.65%, #a58d8d 100%);
+
+
+$site-colors: (
+	'black': $black,
+	'white': $white,
+	'orange': $orange
+) !default;
+
+//----------  Bootstrap grid
+//------------------------------------------------------------------------------
+
+$enable-grid-classes: true !default;
+
+//----------  Media queries breakpoints - Grid breakpoint
+//------------------------------------------------------------------------------
+
+$grid-breakpoints: (
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px
+) !default;
+
+//----------  Grid containers
+//------------------------------------------------------------------------------
+
+$container-max-widths: (
+	sm: 540px,
+	md: 720px,
+	lg: 960px,
+	xl: 1140px
+) !default;
+
+//----------  Grid columns
+//------------------------------------------------------------------------------
+
+$grid-columns: 12 !default;
+$grid-gutter-width: 30px !default;

@@ -1,0 +1,82 @@
+{
+	"questions": [
+		{
+			"id": 1,
+			"mainImage": "assets/images/questions/question1-img.png",
+			"image": "assets/images/questions/question1.png",
+			"statement": "Hi, I’m Sam 1.0 - a robot designed to help you around your home.",
+			"question": "How do you respond?",
+			"steps": [
+				"I wouldn’t be comfortable sharing my life with a machine",
+				"Interesting… I’d like to know more about how it could help",
+				"That’s cool, but I’m waiting for Sam 2.0 coming later this year"
+			],
+			"class": "quiz--brown"
+		},
+		{
+			"id": 2,
+			"mainImage": "assets/images/questions/question2-img.png",
+			"image": "assets/images/questions/question2.png",
+			"statement": "With the many ways of consuming news… ",
+			"question": "How do you find out what’s happening in the world?",
+			"steps": [
+				"Newspapers, TV or radio",
+				"Trusted news websites",
+				"Through friends on social media"
+			],
+			"class": "quiz--brown-2"
+		},
+		{
+			"id": 3,
+			"mainImage": "assets/images/questions/question3-img.png",
+			"image": "assets/images/questions/question3.png",
+			"statement": "It’s Friday night and you have had a busy week.",
+			"question": "How do you feel?",
+			"steps": [
+				"Pull out the phone book and call the landline",
+				"Entertaining at home with family/friends",
+				"Find them on socialand DM them"
+			],
+			"class": "quiz--brown-3"
+		},
+		{
+			"id": 4,
+			"mainImage": "assets/images/questions/question4-img.png",
+			"image": "assets/images/questions/question4.png",
+			"statement": "A new chatbot is released that gives personal advice on healthy eating",
+			"question": "Would you try it?",
+			"steps": [
+				"What’s a ‘chatbot’?",
+				"I might try it if others think it’s good",
+				"Sounds interesting -sign me up!"
+			],
+			"class": "quiz--brown"
+		},
+		{
+			"id": 5,
+			"mainImage": "assets/images/questions/question5-img.png",
+			"image": "assets/images/questions/question5.png",
+			"statement": "You’re reading an article online and see an ad for a desk you were looking to buy last week.",
+			"question": "How do you feel?",
+			"steps": [
+				"A little concerned how they know…",
+				"It is unsettling, but can be helpful",
+				"It is very helpful to see ads related to my interests"
+			],
+			"class": "quiz--brown-2"
+		},
+		{
+			"id": 6,
+			"mainImage": "assets/images/questions/question6-img.png",
+			"image": "assets/images/questions/question6.png",
+			"statement": "Bringing the outside in can reduce stress.",
+			"question": "How do you embrace the peace of nature?",
+			"steps": [
+				"Well-maintained pot plants and floral patterns",
+				"Vases of hand-picked flowers and pots of kitchen herbs",
+				"Free-growing plants and flowers, loose and wild"
+			],
+			"class": "quiz--brown-3"
+		}
+	]
+}

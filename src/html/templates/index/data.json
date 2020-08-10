@@ -1,0 +1,11 @@
+{
+	"template": "index",
+	"data": {
+		"header": {
+			">>": "shared/header/data.json"
+		},
+		"quiz": {
+			">>": "modules/quiz/data.json"
+		}
+	}
+}
