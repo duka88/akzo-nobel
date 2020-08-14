@@ -65,6 +65,10 @@
 	background-position: center center;
 }
 
+.d-none {
+	display: none;
+}
+
 .position-relativ {
 	position: relative;
 }
@@ -77,6 +81,11 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%) scale(0.1);
+}
+
+.carusell-slide {
+	transition: 0.4s ease-in-out;
+	transition-property: transform;
 }
 
 // Theming and colors iterator

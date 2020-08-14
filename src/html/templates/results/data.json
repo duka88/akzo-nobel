@@ -1,0 +1,8 @@
+{
+	"template": "results",
+	"data": {
+		"result": {
+			">>": "modules/result/data.json"
+		}
+	}
+}

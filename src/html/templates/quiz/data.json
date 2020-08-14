@@ -1,0 +1,8 @@
+{
+	"template": "quiz",
+	"data": {
+		"quiz": {
+			">>": "modules/quiz/data.json"
+		}
+	}
+}

@@ -1,40 +1,70 @@
 const quiz = {
-	$mainConteiner: document.querySelector('.js-quiz'),
-	$mainImg: document.querySelector('.js-main-img'),
-	$questionCont: document.querySelector('.js-main-wrap'),
-	$quizStatusBar: document.querySelector('.js-status-bar'),
+	$mainQuizConteiner: null,
+	$mainImg: null,
+	$questionCont: null,
+	$quizStatusBar: null,
 	$quizStatus: null,
-	$quizImage: document.querySelector('.js-image'),
-	$quizQuestion: document.querySelector('.js-question'),
-	$quizStatement: document.querySelector('.js-statement'),
-	$quizCounter: document.querySelector('.js-counter'),
-	$quizIcon: document.querySelector('.js-check-icon'),
-	$quizSlider: document.querySelector('.js-range-slider'),
-	$quizProgresBar: document.querySelector('.js-progres-bar'),
-	$quizDots: document.querySelectorAll('.js-dot'),
-	$quizDotsSmall: document.querySelectorAll('.js-dot-small'),
-	$quizButton: document.querySelector('.js-check'),
-	$quizStep1: document.querySelector('.js-step1'),
-	$quizStep2: document.querySelector('.js-step2'),
-	$quizStep3: document.querySelector('.js-step3'),
+	$quizImage: null,
+	$quizQuestion: null,
+	$quizStatement: null,
+	$quizCounter: null,
+	$quizIcon: null,
+	$quizSlider: null,
+	$quizProgresBar: null,
+	$quizDots: null,
+	$quizDotsSmall: null,
+	$quizButton: null,
+	$quizStep1: null,
+	$quizStep2: null,
+	$quizStep3: null,
+	$quizArow: null,
+	$quizScrollCont: null,
 	check: 'assets/images/icons/check.png',
 	checkActiv: 'assets/images/icons/check-next.png',
 	questionNo: 1,
 	counter: 1,
 	down: false,
-	stroke: 677,
+	stroke: 0,
+	strokeConst: 0,
+	strokeStep: 0,
 	procide: false,
 	max: 324,
 	min: 36,
 	step: 36,
+	keyCount: 0,
+	tuchPosition: 0,
 	questions: [],
 	currentQuestion: {},
 	answers: {answers: [], results: {}, layout: null},
 
 	init: function() {
+		this.setVars();
 		this.fetchQuestions();
 		this.sliderEvents();
-		this.nexQuestion();
+		this.scrollScreen();
+	},
+
+	setVars: function() {
+		this.$mainQuizConteiner = document.querySelector('.js-quiz');
+		this.$mainImg = document.querySelector('.js-main-img');
+		this.$questionCont = document.querySelector('.js-main-wrap');
+		this.$quizStatusBar = document.querySelector('.js-status-bar');
+		this.$quizStatus = null;
+		this.$quizImage = document.querySelector('.js-image');
+		this.$quizQuestion = document.querySelector('.js-question');
+		this.$quizStatement = document.querySelector('.js-statement');
+		this.$quizCounter = document.querySelector('.js-counter');
+		this.$quizIcon = document.querySelectorAll('.js-check-icon');
+		this.$quizSlider = document.querySelector('.js-range-slider');
+		this.$quizProgresBar = document.querySelector('.js-progres-bar');
+		this.$quizDots = document.querySelectorAll('.js-dot');
+		this.$quizDotsSmall = document.querySelectorAll('.js-dot-small');
+		this.$quizButton = document.querySelectorAll('.js-check');
+		this.$quizStep1 = document.querySelector('.js-step1');
+		this.$quizStep2 = document.querySelector('.js-step2');
+		this.$quizStep3 = document.querySelector('.js-step3');
+		this.$quizArow = document.querySelector('.js-arrow');
+		this.$quizScrollCont = document.querySelector('.js-scroll-cont');
 	},
 
 	fetchQuestions: function() {
@@ -57,6 +87,19 @@ const quiz = {
 		this.$quizStatus = document.querySelectorAll('.js-status');
 	},
 
+	setProgresBar: function() {
+		this.stroke = this.strokeConst = Math.round(this.$quizProgresBar.getTotalLength()) * 0.8;
+		this.strokeStep = this.stroke / 8;
+		this.$quizProgresBar.style.strokeDasharray = this.stroke + 'px';
+		this.$quizProgresBar.style.strokeDashoffset = this.stroke + 'px';
+	},
+
+	setCheckIcon: function(img) {
+		this.$quizIcon.forEach((item)=>{
+			item.src = img;
+		});
+	},
+
 	setMainImg: function() {
 		this.$mainImg.classList.remove('opacity');
 		this.$questionCont.classList.add('opacity');
@@ -66,11 +109,11 @@ const quiz = {
 			this.$questionCont.classList.remove('opacity');
 			this.resetQuestion();
 			this.setQuestion();
-		}, 100);
+		}, 300);
 	},
 
 	setQuestion: function() {
-		this.$mainConteiner.classList.add(this.currentQuestion.class);
+		this.$mainQuizConteiner.classList.add(this.currentQuestion.class);
 		this.$quizStatus.forEach((item)=>{
 			item.style.opacity = 0.2;
 			item.innerText = '';
@@ -87,27 +130,24 @@ const quiz = {
 	},
 
 	nexQuestion: function() {
-		this.$quizButton.addEventListener('click', ()=>{
-			if (this.questionNo < this.questions.length && this.procide) {
-				this.$mainConteiner.classList.remove(this.currentQuestion.class);
-				this.questionNo++;
-				this.currentQuestion = this.questions.filter(el => el.id === this.questionNo)[0];
-				this.scoreLogic(this.counter);
-				this.quizinit();
-			} else if (this.questionNo === this.questions.length) {
-				this.scoreLogic(this.counter);
-				this.scoreSum();
-				this.layoutLogic();
-				this.saveResults();
-			}
-		});
+		if (this.questionNo < this.questions.length && this.procide) {
+			this.$mainQuizConteiner.classList.remove(this.currentQuestion.class);
+			this.questionNo++;
+			this.currentQuestion = this.questions.filter(el => el.id === this.questionNo)[0];
+			this.scoreLogic(this.counter);
+			this.quizinit();
+		} else if (this.questionNo === this.questions.length) {
+			this.scoreLogic(this.counter);
+			this.scoreSum();
+			this.layoutLogic();
+			this.saveResults();
+		}
 	},
 
 	sliderEvents: function() {
-		this.$quizSlider.addEventListener('mousedown', (e) => {
+		this.$quizSlider.addEventListener('mousedown', () => {
 			this.down = true;
 			this.procideCheck(false);
-			console.log(e.clientX, e.clientY);
 		});
 
 		this.$quizSlider.addEventListener('mouseup', () => {
@@ -128,6 +168,18 @@ const quiz = {
 			}
 		});
 
+		this.$quizSlider.addEventListener('keydown', (e) => {
+			let deg = 0;
+			if (e.keyCode === 38 && this.counter < 9) {
+				this.keyCount++;
+			} else if (e.keyCode === 40 && this.counter > 0) {
+				this.keyCount--;
+			}
+			deg = this.max - this.step * this.keyCount;
+			this.changeCounter(0, 0, deg);
+			this.procideCheck(true);
+		});
+
 		this.$quizSlider.addEventListener('touchstart', () => {
 			this.down = true;
 			this.procideCheck(false);
@@ -142,6 +194,17 @@ const quiz = {
 			if (this.down) {
 				this.changeCounter(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
 			}
+		});
+
+		this.$quizButton.forEach((item)=>{
+			item.addEventListener('click', ()=>{
+				this.nexQuestion();
+			});
+			item.addEventListener('keydown', (e)=>{
+				if (e.keyCode === 13) {
+					this.nexQuestion();
+				}
+			});
 		});
 	},
 
@@ -177,7 +240,7 @@ const quiz = {
 		const high = Math.ceil(n / this.step);
 		let val;
 		this.counter = 10 - high;
-		this.stroke = 667 - (80 * (this.counter - 1));
+		this.stroke = this.strokeConst - (this.strokeStep * (this.counter - 1));
 		if (this.counter > 0) {
 			if (this.counter === 10) {
 				val = this.max;
@@ -190,9 +253,8 @@ const quiz = {
 		return val;
 	},
 
-	changeCounter(x, y) {
-		const deg = this.angle(x, y);
-		console.log(this.normalize(deg));
+	changeCounter(x, y, keyPress = false) {
+		const deg = keyPress ? keyPress : this.angle(x, y);
 		this.$quizSlider.style.transform = `rotate(-${this.normalize(deg)}deg)`;
 		this.$quizProgresBar.style.strokeDashoffset = this.stroke + 'px';
 		this.$quizCounter.innerText = this.counter;
@@ -206,7 +268,7 @@ const quiz = {
 
 	procideCheck: function(done) {
 		if (!done) {
-			this.$quizIcon.src = this.check;
+			this.setCheckIcon(this.check);
 			this.procide = false;
 			this.$quizDotsSmall.forEach((item, index)=>{
 				item.classList.remove('guiz__dot-active');
@@ -218,7 +280,7 @@ const quiz = {
 			this.$quizDotsSmall.forEach((item)=>{
 				item.classList.add('guiz__dot-active');
 			});
-			this.$quizIcon.src = this.checkActiv;
+			this.setCheckIcon(this.checkActiv);
 			this.procide = true;
 		}
 	},
@@ -310,12 +372,12 @@ const quiz = {
 
 	resetQuestion: function() {
 		this.counter = 1;
+		this.keyCount = 0;
 		this.down = false;
-		this.stroke = 677;
 		this.procide = false;
 		this.$quizSlider.style.transform = 'rotate(-324deg)';
 		this.$quizProgresBar.style.strokeDashoffset = this.stroke + 'px';
-		this.$quizIcon.src = this.$quizIcon.src.replace('-next.png', '.png');
+		this.setCheckIcon(this.check);
 		this.$quizDotsSmall.forEach((item)=>{
 			item.classList.remove('guiz__dot-active');
 		});
@@ -324,7 +386,30 @@ const quiz = {
 		});
 	},
 
+	scrollScreen: function() {
+		if (window.innerWidth < 588) {
+			this.$questionCont.addEventListener('touchstart', (e)=>{
+				this.tuchPosition = e.targetTouches[0].clientY;
+			});
+			this.$questionCont.addEventListener('touchmove', (e) => {
+				if (this.tuchPosition && !this.$quizSlider.contains(e.target)) {
+					if (this.tuchPosition > e.targetTouches[0].clientY) {
+						this.$quizScrollCont.style.marginTop = `-${this.$quizScrollCont.offsetHeight + 27}px`;
+						this.$mainQuizConteiner.classList.add('quiz--down');
+						this.tuchPosition = e.targetTouches[0].clientY;
+					} else {
+						this.$quizScrollCont.style.marginTop = '125px';
+						this.$mainQuizConteiner.classList.remove('quiz--down');
+						this.tuchPosition = e.targetTouches[0].clientY;
+					}
+				}
+			});
+
+		}
+	},
+
 	quizinit: function() {
+		this.setProgresBar();
 		this.setMainImg();
 	}
 
