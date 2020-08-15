@@ -16,9 +16,9 @@ const result = {
 	caruselWidth: null,
 	leyout: {},
 
-	init: function(leyout) {
+	init: function(leyout, lang) {
 		this.setVars();
-		this.getLeyout(leyout);
+		this.getLeyout(leyout, lang);
 		this.sliderResultEvents();
 	},
 
@@ -32,8 +32,8 @@ const result = {
 		this.$downArow = document.querySelector('.js-down-arow');
 	},
 
-	getLeyout: function(leyout) {
-		fetch('json/result.json')
+	getLeyout: function(leyout, lang) {
+		fetch(`json/${lang}/result.json`)
 			.then(response => response.json())
 			.then((data) => {
 				this.leyout = data.results.find(el => el.id === leyout);
@@ -62,8 +62,6 @@ const result = {
 		this.caruselWidth = this.allImgs[0].clientWidth;
 		this.carusellScroll(false);
 		this.carusellEvents();
-		console.log(this.caruselCounter);
-		console.log(this.allImgs.length);
 	},
 
 	carusellScroll: function(transition = true) {
@@ -72,11 +70,11 @@ const result = {
 		} else {
 			this.$imageWrap.classList.add('carusell-slide');
 		}
-		this.$imageWrap.style.transform = `translateX(${-this.caruselWidth * this.caruselCounter}px)`;
+		this.$imageWrap.style.transform = `translateX(-${this.caruselWidth * this.caruselCounter}px)`;
 	},
 
 	carusellScrollLeft: function() {
-		if (this.caruselCounter >= this.allImgs.length - 1) {
+		if (this.caruselCounter > this.allImgs.length - 1) {
 			return;
 		} else {
 			this.caruselCounter++;
@@ -96,19 +94,19 @@ const result = {
 	carusellEvents: function() {
 
 		this.$upArow.addEventListener('click', ()=> {
-			this.carusellScrollLeft();
+			this.carusellScrollRight();
 		});
 
 		this.$downArow.addEventListener('click', ()=> {
-			this.carusellScrollRight();
+			this.carusellScrollLeft();
 		});
 
 		this.$imageWrap.addEventListener('transitionend', () => {
 			if (this.caruselCounter === 0) {
-				this.caruselCounter = this.allImgs.length - 1;
+				this.caruselCounter = this.allImgs.length - 2;
 				this.carusellScroll(false);
-			} else if (this.caruselCounter === this.allImgs.length) {
-				this.caruselCounter = 1;
+			} else if (this.caruselCounter === this.allImgs.length - 1) {
+				this.caruselCounter = this.allImgs.length - this.caruselCounter;
 				this.carusellScroll(false);
 			}
 			this.allImgs[this.caruselCounter - 1].classList.add('this.caruselCounter');

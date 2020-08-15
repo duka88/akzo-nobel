@@ -6,6 +6,9 @@
 		},
 		"result": {
 			">>": "modules/result/data.json"
+		},
+		"home": {
+			">>": "modules/home/data.json"
 		}
 	}
 }

@@ -1,4 +1,6 @@
+import result from '../_project/result';
 const quiz = {
+	$mainConteiner: document.querySelector('.js-main'),
 	$mainQuizConteiner: null,
 	$mainImg: null,
 	$questionCont: null,
@@ -33,11 +35,13 @@ const quiz = {
 	step: 36,
 	keyCount: 0,
 	tuchPosition: 0,
+	lang: '',
 	questions: [],
 	currentQuestion: {},
 	answers: {answers: [], results: {}, layout: null},
 
-	init: function() {
+	init: function(lang) {
+		this.lang = lang;
 		this.setVars();
 		this.fetchQuestions();
 		this.sliderEvents();
@@ -68,7 +72,7 @@ const quiz = {
 	},
 
 	fetchQuestions: function() {
-		fetch('json/questions.json')
+		fetch(`json/${this.lang}/questions.json`)
 			.then(response => response.json())
 			.then((data) => {
 				this.questions = data.questions;
@@ -368,6 +372,7 @@ const quiz = {
 
 	saveResults: function() {
 		localStorage.setItem('answers', JSON.stringify(this.answers));
+		this.fetchResult();
 	},
 
 	resetQuestion: function() {
@@ -406,6 +411,18 @@ const quiz = {
 			});
 
 		}
+	},
+
+	fetchResult: function() {
+		fetch('/dist/results.html')
+			.then(response => response.text())
+			.then((data) => {
+				const height = this.$mainConteiner.clientHeight;
+				this.$mainConteiner.innerHTML += data;
+				result.init(this.answers.layout, this.lang);
+				this.$mainConteiner.style.transform = `translateY(-${height}px)`;
+			});
+
 	},
 
 	quizinit: function() {

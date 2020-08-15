@@ -1,0 +1,47 @@
+//---------- home
+//------------------------------------------------------------------------------
+
+.home {
+	width: 100%;
+	height: 100vh;
+	background-image: url('../assets/images/home-bg.png');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: $black;
+}
+.home__lang-wrap {
+	width: 100%;
+	@include make-end;
+	padding: 42px 35px;
+
+	.explore--lang {
+		margin-right: 19px;
+	}
+}
+.home__content-wrap {
+	color: $white;
+	min-height: calc(100% - 135px);
+	@include make-center;	
+}
+.home__heding-wrap {
+	@include make-center;	
+	align-items: center;
+	height: 268px;
+	text-align: center;
+}
+.home__title {
+	font-size: 150px;
+	line-height: 150px;
+	font-family: $font-default-bold;
+}
+.home__heding-text {
+	font-size: 18px;
+	line-height: 22px;
+	max-width: 678px;
+}
+.home__logo-wrap {
+	width: 100%;
+	@include make-center;	
+	align-items: center;
+}

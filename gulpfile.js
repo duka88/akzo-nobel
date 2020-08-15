@@ -27,14 +27,9 @@ function copyFavicon(done) {
 }
 
 function gulpJson(done) {
-	fs.readdirSync('./src/json').forEach(file => {
-		if(globalVars.webFolder) {
-			fs.copyFileSync(`./src/json/${file}`, `${globalVars.webFolder}/${file}`);
-		}
-		fs.copyFileSync(`./src/json/${file}`, `./dist/json/${file}`);
-	});
+	gulp.src('./src/json/**/*')
+		.pipe(gulp.dest('./dist/json'))
 	done();
-
 };
 
 // check for node version
