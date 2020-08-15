@@ -1,42 +1,78 @@
+import result from '../_project/result';
 const quiz = {
-	$mainConteiner: document.querySelector('.js-quiz'),
-	$mainImg: document.querySelector('.js-main-img'),
-	$questionCont: document.querySelector('.js-main-wrap'),
-	$quizStatusBar: document.querySelector('.js-status-bar'),
+	$mainConteiner: document.querySelector('.js-main'),
+	$mainQuizConteiner: null,
+	$mainImg: null,
+	$questionCont: null,
+	$quizStatusBar: null,
 	$quizStatus: null,
-	$quizImage: document.querySelector('.js-image'),
-	$quizQuestion: document.querySelector('.js-question'),
-	$quizStatement: document.querySelector('.js-statement'),
-	$quizCounter: document.querySelector('.js-counter'),
-	$quizIcon: document.querySelector('.js-check-icon'),
-	$quizSlider: document.querySelector('.js-range-slider'),
-	$quizProgresBar: document.querySelector('.js-progres-bar'),
-	$quizDots: document.querySelectorAll('.js-dot'),
-	$quizDotsSmall: document.querySelectorAll('.js-dot-small'),
-	$quizButton: document.querySelector('.js-check'),
-	$quizStep1: document.querySelector('.js-step1'),
-	$quizStep2: document.querySelector('.js-step2'),
-	$quizStep3: document.querySelector('.js-step3'),
+	$quizImage: null,
+	$quizQuestion: null,
+	$quizStatement: null,
+	$quizCounter: null,
+	$quizIcon: null,
+	$quizSlider: null,
+	$quizProgresBar: null,
+	$quizDots: null,
+	$quizDotsSmall: null,
+	$quizButton: null,
+	$quizStep1: null,
+	$quizStep2: null,
+	$quizStep3: null,
+	$quizArow: null,
+	$quizScrollCont: null,
+	check: 'assets/images/icons/check.png',
+	checkActiv: 'assets/images/icons/check-next.png',
 	questionNo: 1,
 	counter: 1,
 	down: false,
-	rotate: 45,
-	stroke: 677,
+	stroke: 0,
+	strokeConst: 0,
+	strokeStep: 0,
 	procide: false,
-	mouseY: 0,
-	mouseX: 0,
+	max: 324,
+	min: 36,
+	step: 36,
+	keyCount: 0,
+	tuchPosition: 0,
+	lang: '',
 	questions: [],
 	currentQuestion: {},
 	answers: {answers: [], results: {}, layout: null},
 
-	init: function() {
+	init: function(lang) {
+		this.lang = lang;
+		this.setVars();
 		this.fetchQuestions();
-		this.sliderMouseEvents();
-		this.nexQuestion();
+		this.sliderEvents();
+		this.scrollScreen();
+	},
+
+	setVars: function() {
+		this.$mainQuizConteiner = document.querySelector('.js-quiz');
+		this.$mainImg = document.querySelector('.js-main-img');
+		this.$questionCont = document.querySelector('.js-main-wrap');
+		this.$quizStatusBar = document.querySelector('.js-status-bar');
+		this.$quizStatus = null;
+		this.$quizImage = document.querySelector('.js-image');
+		this.$quizQuestion = document.querySelector('.js-question');
+		this.$quizStatement = document.querySelector('.js-statement');
+		this.$quizCounter = document.querySelector('.js-counter');
+		this.$quizIcon = document.querySelectorAll('.js-check-icon');
+		this.$quizSlider = document.querySelector('.js-range-slider');
+		this.$quizProgresBar = document.querySelector('.js-progres-bar');
+		this.$quizDots = document.querySelectorAll('.js-dot');
+		this.$quizDotsSmall = document.querySelectorAll('.js-dot-small');
+		this.$quizButton = document.querySelectorAll('.js-check');
+		this.$quizStep1 = document.querySelector('.js-step1');
+		this.$quizStep2 = document.querySelector('.js-step2');
+		this.$quizStep3 = document.querySelector('.js-step3');
+		this.$quizArow = document.querySelector('.js-arrow');
+		this.$quizScrollCont = document.querySelector('.js-scroll-cont');
 	},
 
 	fetchQuestions: function() {
-		fetch('json/questions.json')
+		fetch(`json/${this.lang}/questions.json`)
 			.then(response => response.json())
 			.then((data) => {
 				this.questions = data.questions;
@@ -55,6 +91,19 @@ const quiz = {
 		this.$quizStatus = document.querySelectorAll('.js-status');
 	},
 
+	setProgresBar: function() {
+		this.stroke = this.strokeConst = Math.round(this.$quizProgresBar.getTotalLength()) * 0.8;
+		this.strokeStep = this.stroke / 8;
+		this.$quizProgresBar.style.strokeDasharray = this.stroke + 'px';
+		this.$quizProgresBar.style.strokeDashoffset = this.stroke + 'px';
+	},
+
+	setCheckIcon: function(img) {
+		this.$quizIcon.forEach((item)=>{
+			item.src = img;
+		});
+	},
+
 	setMainImg: function() {
 		this.$mainImg.classList.remove('opacity');
 		this.$questionCont.classList.add('opacity');
@@ -64,11 +113,11 @@ const quiz = {
 			this.$questionCont.classList.remove('opacity');
 			this.resetQuestion();
 			this.setQuestion();
-		}, 100);
+		}, 300);
 	},
 
 	setQuestion: function() {
-		this.$mainConteiner.classList.add(this.currentQuestion.class);
+		this.$mainQuizConteiner.classList.add(this.currentQuestion.class);
 		this.$quizStatus.forEach((item)=>{
 			item.style.opacity = 0.2;
 			item.innerText = '';
@@ -85,27 +134,23 @@ const quiz = {
 	},
 
 	nexQuestion: function() {
-		this.$quizButton.addEventListener('click', ()=>{
-			if (this.questionNo < this.questions.length && this.procide) {
-				this.$mainConteiner.classList.remove(this.currentQuestion.class);
-				this.questionNo++;
-				this.currentQuestion = this.questions.filter(el => el.id === this.questionNo)[0];
-				this.scoreLogic(this.counter);
-				this.quizinit();
-			} else if (this.questionNo === this.questions.length) {
-				this.scoreLogic(this.counter);
-				this.scoreSum();
-				this.layoutLogic();
-				this.saveResults();
-			}
-		});
+		if (this.questionNo < this.questions.length && this.procide) {
+			this.$mainQuizConteiner.classList.remove(this.currentQuestion.class);
+			this.questionNo++;
+			this.currentQuestion = this.questions.filter(el => el.id === this.questionNo)[0];
+			this.scoreLogic(this.counter);
+			this.quizinit();
+		} else if (this.questionNo === this.questions.length) {
+			this.scoreLogic(this.counter);
+			this.scoreSum();
+			this.layoutLogic();
+			this.saveResults();
+		}
 	},
 
-	sliderMouseEvents: function() {
-		this.$quizSlider.addEventListener('mousedown', (e) => {
+	sliderEvents: function() {
+		this.$quizSlider.addEventListener('mousedown', () => {
 			this.down = true;
-			this.mouseY = e.clientY;
-			this.mouseX = e.clientX;
 			this.procideCheck(false);
 		});
 
@@ -123,56 +168,98 @@ const quiz = {
 
 		this.$quizSlider.addEventListener('mousemove', (e) => {
 			if (this.down) {
-				this.moveLogic(e.clientX, e.clientY);
+				this.changeCounter(e.clientX, e.clientY);
 			}
+		});
+
+		this.$quizSlider.addEventListener('keydown', (e) => {
+			let deg = 0;
+			if (e.keyCode === 38 && this.counter < 9) {
+				this.keyCount++;
+			} else if (e.keyCode === 40 && this.counter > 0) {
+				this.keyCount--;
+			}
+			deg = this.max - this.step * this.keyCount;
+			this.changeCounter(0, 0, deg);
+			this.procideCheck(true);
+		});
+
+		this.$quizSlider.addEventListener('touchstart', () => {
+			this.down = true;
+			this.procideCheck(false);
+		});
+
+		this.$quizSlider.addEventListener('touchend', () => {
+			this.down = false;
+			this.procideCheck(true);
+		});
+
+		this.$quizSlider.addEventListener('touchmove', (e) => {
+			if (this.down) {
+				this.changeCounter(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+			}
+		});
+
+		this.$quizButton.forEach((item)=>{
+			item.addEventListener('click', ()=>{
+				this.nexQuestion();
+			});
+			item.addEventListener('keydown', (e)=>{
+				if (e.keyCode === 13) {
+					this.nexQuestion();
+				}
+			});
 		});
 	},
 
-	moveLogic: function(moveX, moveY) {
-		const calcY = Math.round(this.mouseY - moveY);
-		const calcX = Math.round(this.mouseX - moveX);
-		if (this.counter >= 1 && this.counter < 4) {
-			if (calcY > 30) {
-				this.mouseY = moveY;
-				this.counter++;
-				this.rotate += 33.75;
-				this.stroke -= 80;
-			} else if (calcY < -30 && this.counter > 1) {
-				this.mouseY = moveY;
-				this.counter--;
-				this.rotate -= 33.75;
-				this.stroke += 80;
-			}
-		} else if (this.counter >= 4 && this.counter < 7) {
-			if (calcX < -30 && this.counter < 7) {
-				this.mouseX = moveX;
-				this.counter++;
-				this.rotate += 33.75;
-				this.stroke -= 80;
-			} else if (calcX > 30 && this.counter >= 4) {
-				this.mouseX = moveX;
-				this.counter--;
-				this.rotate -= 33.75;
-				this.stroke += 80;
-			}
-		} else if (this.counter <= 9) {
-			if (calcY < -30 && this.counter < 9) {
-				this.mouseY = moveY;
-				this.counter++;
-				this.rotate += 33.75;
-				this.stroke -= 80;
-			} else if (calcY > 30) {
-				this.mouseY = moveY;
-				this.counter--;
-				this.rotate -= 33.75;
-				this.stroke += 80;
-			}
-		}
-		this.changeCounter();
+	getCenter: function(element) {
+		const rect = element.getBoundingClientRect();
+		return [
+			rect.left + (rect.width / 2),
+			rect.top + (rect.height / 2),
+		];
 	},
 
-	changeCounter() {
-		this.$quizSlider.style.transform = `rotate(${this.rotate}deg)`;
+	radToDeg: function(rad) {
+		return rad * (180 / Math.PI);
+	},
+
+	angle: function(mx, my) {
+		const center = this.getCenter(this.$quizSlider);
+		const x = mx - center[0];
+		const y = my - center[1];
+		let deg = this.radToDeg(Math.atan2(x, y));
+		if (deg < 0) {
+			deg += 360;
+		} else if (deg > 336) {
+			deg = 336;
+		} else if (deg < 30) {
+			deg = 30;
+		}
+		return deg;
+	},
+
+	normalize: function(degree) {
+		const n = Math.max(this.min, Math.min(degree, this.max));
+		const high = Math.ceil(n / this.step);
+		let val;
+		this.counter = 10 - high;
+		this.stroke = this.strokeConst - (this.strokeStep * (this.counter - 1));
+		if (this.counter > 0) {
+			if (this.counter === 10) {
+				val = this.max;
+			} else {
+				val = high * this.step;
+			}
+		} else {
+			val = this.min;
+		}
+		return val;
+	},
+
+	changeCounter(x, y, keyPress = false) {
+		const deg = keyPress ? keyPress : this.angle(x, y);
+		this.$quizSlider.style.transform = `rotate(-${this.normalize(deg)}deg)`;
 		this.$quizProgresBar.style.strokeDashoffset = this.stroke + 'px';
 		this.$quizCounter.innerText = this.counter;
 		this.$quizDots.forEach((item, index)=>{
@@ -185,7 +272,7 @@ const quiz = {
 
 	procideCheck: function(done) {
 		if (!done) {
-			this.$quizIcon.src = this.$quizIcon.src.replace('-next.png', '.png');
+			this.setCheckIcon(this.check);
 			this.procide = false;
 			this.$quizDotsSmall.forEach((item, index)=>{
 				item.classList.remove('guiz__dot-active');
@@ -197,7 +284,7 @@ const quiz = {
 			this.$quizDotsSmall.forEach((item)=>{
 				item.classList.add('guiz__dot-active');
 			});
-			this.$quizIcon.src = this.$quizIcon.src.replace('.png', '-next.png');
+			this.setCheckIcon(this.checkActiv);
 			this.procide = true;
 		}
 	},
@@ -285,19 +372,17 @@ const quiz = {
 
 	saveResults: function() {
 		localStorage.setItem('answers', JSON.stringify(this.answers));
+		this.fetchResult();
 	},
 
 	resetQuestion: function() {
 		this.counter = 1;
+		this.keyCount = 0;
 		this.down = false;
-		this.rotate = 45;
-		this.stroke = 677;
 		this.procide = false;
-		this.mouseY = 0;
-		this.mouseX = 0;
-		this.$quizSlider.style.transform = `rotate(${this.rotate}deg)`;
+		this.$quizSlider.style.transform = 'rotate(-324deg)';
 		this.$quizProgresBar.style.strokeDashoffset = this.stroke + 'px';
-		this.$quizIcon.src = this.$quizIcon.src.replace('-next.png', '.png');
+		this.setCheckIcon(this.check);
 		this.$quizDotsSmall.forEach((item)=>{
 			item.classList.remove('guiz__dot-active');
 		});
@@ -306,7 +391,42 @@ const quiz = {
 		});
 	},
 
+	scrollScreen: function() {
+		if (window.innerWidth < 588) {
+			this.$questionCont.addEventListener('touchstart', (e)=>{
+				this.tuchPosition = e.targetTouches[0].clientY;
+			});
+			this.$questionCont.addEventListener('touchmove', (e) => {
+				if (this.tuchPosition && !this.$quizSlider.contains(e.target)) {
+					if (this.tuchPosition > e.targetTouches[0].clientY) {
+						this.$quizScrollCont.style.marginTop = `-${this.$quizScrollCont.offsetHeight + 27}px`;
+						this.$mainQuizConteiner.classList.add('quiz--down');
+						this.tuchPosition = e.targetTouches[0].clientY;
+					} else {
+						this.$quizScrollCont.style.marginTop = '125px';
+						this.$mainQuizConteiner.classList.remove('quiz--down');
+						this.tuchPosition = e.targetTouches[0].clientY;
+					}
+				}
+			});
+
+		}
+	},
+
+	fetchResult: function() {
+		fetch('/dist/results.html')
+			.then(response => response.text())
+			.then((data) => {
+				const height = this.$mainConteiner.clientHeight;
+				this.$mainConteiner.innerHTML += data;
+				result.init(this.answers.layout, this.lang);
+				this.$mainConteiner.style.transform = `translateY(-${height}px)`;
+			});
+
+	},
+
 	quizinit: function() {
+		this.setProgresBar();
 		this.setMainImg();
 	}
 

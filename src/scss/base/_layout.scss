@@ -6,6 +6,9 @@ body {
 	font-size: 14px;
 	font-weight: 400;
 	color: $black;
+	overflow: hidden;
+	transition: 0.4s ease-out;
+	transition-property: transform;
 }
 
 .scroll-disabled {

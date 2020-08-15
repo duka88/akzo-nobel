@@ -1,17 +1,18 @@
 //----------  variables
 //------------------------------------------------------------------------------
 
-$font-default: Helvetica, sans-serif;
-$font-default-light-italic: 'Helvetica-light-italic, sans-serif';
-$font-default-italic: 'Helvetica-italic, sans-serif';
+$font-default: Helvetica;
+$font-default-light-italic: 'Helvetica-light-italic';
+$font-default-italic: 'Helvetica-italic';
 $font-default-light: 'Helvetica-light';
-$font-default-bold: 'Helvetica-bold, sans-serif';
-$gotham: 'Gotham, sans-serif';
+$font-default-bold: 'Helvetica-bold';
+$gotham: 'Gotham';
 
 // Colors
 $white: #fff;
 $black: #000;
 $black-2: #3f2f2b;
+$black-3: #676767;
 $orange: #f1592a;
 $grey: #ccc;
 $brown: #815f5f;
@@ -40,7 +41,14 @@ $inner-button-gradient-3: linear-gradient(180deg, #d9c3c3 0%, #a78e8e 100%);
 $circle-wrap-gradient-3: linear-gradient(180deg, #e0caca 0%, #a18888 100%);
 $circle-gradient-3: linear-gradient(180deg, #dfc9c9 0%, #a48b8b 100%);
 $circle-small-gradient-3: linear-gradient(0deg, #eadada -57.65%, #a58d8d 100%);
-
+//result 1
+$result1-bg: #b07059;
+$result1-color-sample1: #a38b88;
+$result1-color-sample2: #bc997f;
+$result1-color-sample3: #bd9996;
+$result1-color-sample4: $result1-bg;
+$result1-color-sample5: #9e765f;
+$result1-color-sample6: #a2764c;
 
 $site-colors: (
 	'black': $black,
@@ -61,7 +69,8 @@ $grid-breakpoints: (
 	sm: 576px,
 	md: 768px,
 	lg: 992px,
-	xl: 1200px
+	xl: 1025px,
+	xxl: 1441px
 ) !default;
 
 //----------  Grid containers

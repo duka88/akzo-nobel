@@ -28,6 +28,12 @@
 	justify-content: space-between;
 }
 
+@mixin make-around {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
 @mixin make-start {
 	display: flex;
 	flex-wrap: wrap;

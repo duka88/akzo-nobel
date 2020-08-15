@@ -1,0 +1,94 @@
+{
+	"results" : [
+		{
+			"id": 1,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Chaleureuse</h2>",
+			"text" : "La personne chaleureuse répond à l'incertitude du monde extérieur en s'enveloppant dans sa maison. Ils puisent dans le confort de leur maison pour les aider à renouer avec eux-mêmes."
+		},
+		{
+			"id": 2,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Chaleureuse</h2>",
+			"text" : "La personne chaleureuse répond à l'incertitude du monde extérieur en s'enveloppant dans sa maison. Ils puisent dans le confort de leur maison pour les aider à renouer avec eux-mêmes."
+		},
+		{
+			"id": 3,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Chaleureuse</h2>",
+			"text" : "La personne chaleureuse répond à l'incertitude du monde extérieur en s'enveloppant dans sa maison. Ils puisent dans le confort de leur maison pour les aider à renouer avec eux-mêmes."
+		},
+		{
+			"id": 4,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Chaleureuse</h2>",
+			"text" : "La personne chaleureuse répond à l'incertitude du monde extérieur en s'enveloppant dans sa maison. Ils puisent dans le confort de leur maison pour les aider à renouer avec eux-mêmes."
+		},
+		{
+			"id": 5,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Chaleureuse</h2>",
+			"text" : "La personne chaleureuse répond à l'incertitude du monde extérieur en s'enveloppant dans sa maison. Ils puisent dans le confort de leur maison pour les aider à renouer avec eux-mêmes."
+		},
+		{
+			"id": 6,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Chaleureuse</h2>",
+			"text" : "La personne chaleureuse répond à l'incertitude du monde extérieur en s'enveloppant dans sa maison. Ils puisent dans le confort de leur maison pour les aider à renouer avec eux-mêmes."
+		},
+		{
+			"id": 7,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Chaleureuse</h2>",
+			"text" : "La personne chaleureuse répond à l'incertitude du monde extérieur en s'enveloppant dans sa maison. Ils puisent dans le confort de leur maison pour les aider à renouer avec eux-mêmes."
+		},
+		{
+			"id": 8,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Chaleureuse</h2>",
+			"text" : "La personne chaleureuse répond à l'incertitude du monde extérieur en s'enveloppant dans sa maison. Ils puisent dans le confort de leur maison pour les aider à renouer avec eux-mêmes."
+		},
+		{
+			"id": 9,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Chaleureuse</h2>",
+			"text" : "La personne chaleureuse répond à l'incertitude du monde extérieur en s'enveloppant dans sa maison. Ils puisent dans le confort de leur maison pour les aider à renouer avec eux-mêmes."
+		}
+	]
+}

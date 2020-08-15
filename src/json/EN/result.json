@@ -1,0 +1,93 @@
+{
+	"results" : [
+		{
+			"id": 1,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Warm hearted </h2>",
+			"text" : "The Warm-hearted person responds to uncertainty in the outside world by enveloping themselves in their home. They draw on the comfort that their home provides to\thelp them reconnect with themselves."
+		},
+		{
+			"id": 2,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Warm hearted </h2>",
+			"text" : "The Warm-hearted person responds to uncertainty in the outside world by enveloping themselves in their home. They draw on the comfort that their home provides to\thelp them reconnect with themselves."
+		},
+		{
+			"id": 3,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Warm hearted </h2>",
+			"text" : "The Warm-hearted person responds to uncertainty in the outside world by enveloping themselves in their home. They draw on the comfort that their home provides to\thelp them reconnect with themselves."
+		},
+		{
+			"id": 4,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Warm hearted </h2>",
+			"text" : "The Warm-hearted person responds to uncertainty in the outside world by enveloping themselves in their home. They draw on the comfort that their home provides to\thelp them reconnect with themselves."
+		},
+		{
+			"id": 5,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Warm hearted </h2>",
+			"text" : "The Warm-hearted person responds to uncertainty in the outside world by enveloping themselves in their home. They draw on the comfort that their home provides to\thelp them reconnect with themselves."
+		},
+		{
+			"id": 6,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Warm hearted </h2>",
+			"text" : "The Warm-hearted person responds to uncertainty in the outside world by enveloping themselves in their home. They draw on the comfort that their home provides to\thelp them reconnect with themselves."
+		},
+		{
+			"id": 7,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Warm hearted </h2>",
+			"text" : "The Warm-hearted person responds to uncertainty in the outside world by enveloping themselves in their home. They draw on the comfort that their home provides to\thelp them reconnect with themselves."
+		},
+		{
+			"id": 8,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Warm hearted </h2>",
+			"text" : "The Warm-hearted person responds to uncertainty in the outside world by enveloping themselves in their home. They draw on the comfort that their home provides to\thelp them reconnect with themselves."
+		},
+		{
+			"id": 9,
+			"images": [
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png",
+				"assets/images/results/slider-img1.png"
+			],
+			"heading" : "<p class='result__top-heding'>You are</p><h2 class='result__heding'>Warm hearted </h2>",
+			"text" : "The Warm-hearted person responds to uncertainty in the outside world by enveloping themselves in their home. They draw on the comfort that their home provides to\thelp them reconnect with themselves."
+		}
+	]
+}

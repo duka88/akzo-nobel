@@ -36,3 +36,70 @@ input[type='submit'] {
 		border-radius: 20px;
 	}
 }
+.explore {
+	@include make-center;
+	align-items: center;
+	border: 1px solid $white;
+	border-radius: 100px;
+	width: 193px;
+	height: 51px;
+	font-size: 14px;
+	line-height: 18px;
+	p {
+		margin-bottom: 4px;
+	}
+	@include media-breakpoint-down(lg) {
+		width: 138px;
+		height: 37px;
+		font-size: 10px;
+		line-height: 10px;
+		p {
+			margin-bottom: 0;
+		}
+	}
+}
+.explore__explore-text {
+	color: $white;
+	font-family: $font-default-light-italic;
+	font-weight: 300;
+	position: relative;
+	strong {
+		font-family: $font-default-bold;
+	}
+	@include media-breakpoint-down(lg) {
+		margin-right: 8px;
+	}
+}
+.explore__icon {
+	margin-right: 20px;
+	@include media-breakpoint-down(lg) {
+		width: 14px;
+		margin-right: 8px;
+	}
+}
+.explore__list {
+	position: absolute;
+	background: $white;
+    color: $black-3;
+    width: 40px;
+    padding: 3px;
+}
+.explore__lang-drop {
+	@include make-center;
+	align-items: center;
+}
+.explore__arow {
+	margin-left: 10px;	
+}
+.explore--lang {
+	width: 103px;
+	.explore__icon {
+		margin-right: 10px;
+	}
+}
+.explore--start {
+	background: $white;
+	.explore__explore-text {
+		color: $black-3;
+	}
+}
