@@ -9,7 +9,7 @@
 	position: relative;
 	margin: 8px 0 23px;
 	@include media-breakpoint-down(xl) {
-		margin: 8px 11px 23px 0;
+		margin: 11px 13px 22px 0;
 	}
 	@include media-breakpoint-down(lg) {
 		width: 240px;
@@ -34,12 +34,16 @@
 	z-index: 3;
 	margin-left: -4px;
 	@include media-breakpoint-down(xl) {
-		margin-right: -4px;
+		top: 49%;
+		left: 48%;
+		margin: 0;
 	}
 	@include media-breakpoint-down(lg) {
-		margin-left: -8px;
+		top: 49%;
+		left: 47%;
+		font-size: 45px;
 	}
-	@include media-breakpoint-down(lg) {
+	@include media-breakpoint-down(sm) {
 		top: 46%;
 		left: 48%;
 		margin: 0;
@@ -180,10 +184,10 @@
 	max-width: 427px;
 	margin-bottom: 25px;
 	@include media-breakpoint-down(lg) {
-		margin-bottom: 20px;
+		margin-bottom: 21px;
 		max-width: 315px;
 	}
-	@include media-breakpoint-down(lg) {
+	@include media-breakpoint-down(sm) {
 		margin-bottom: 16px;
 	}
 }

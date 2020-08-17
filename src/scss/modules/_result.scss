@@ -125,6 +125,8 @@
 	top: 50%;
 	left: 0;
 	transform: translate(50%, -50%);
+	transition: 0.2s linear;
+	transition-property: left;
 	@include make-center;
 	align-items: center;
 	cursor: pointer;
@@ -321,11 +323,19 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
+	border-radius: 50%;
+	border: 1px solid rgba($white, 0.2);
 	left: 0;
 	top: 0;
-	img {
-		width: 100%;
-	}
+}
+.result__progres-bar {
+	stroke: $white;
+	transition: 0.2s linear;
+	transition-property: stroke-dashoffset;
+}
+.result__progres-bar-wrap {
+	width: 45px;
+	height: 45px;
 }
 .result__letter {
 	text-align: center;
