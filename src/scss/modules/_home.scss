@@ -22,26 +22,43 @@
 .home__content-wrap {
 	color: $white;
 	min-height: calc(100% - 135px);
-	@include make-center;	
+	@include make-center;
+	.explore--start {
+		margin: 0 89px 131px 0;
+	}
 }
 .home__heding-wrap {
-	@include make-center;	
+	@include make-center;
 	align-items: center;
 	height: 268px;
 	text-align: center;
+	padding: 57px 0 0;
 }
 .home__title {
 	font-size: 150px;
 	line-height: 150px;
+	margin: 0 83px 11px 0;
+	letter-spacing: 1.2px;
 	font-family: $font-default-bold;
 }
 .home__heding-text {
 	font-size: 18px;
 	line-height: 22px;
 	max-width: 678px;
+	margin-right: 65px;
 }
 .home__logo-wrap {
 	width: 100%;
-	@include make-center;	
+	display: flex;
+	max-width: 497px;
 	align-items: center;
+	padding: 32px 0 0 24px;
+}
+.home__logo-text {
+	font-size: 12px;
+	max-width: 695px;
+	margin-right: 65px;
+}
+.vertical-devider--home {
+	margin: 8px 31px 0 19px;
 }

@@ -80,16 +80,16 @@ input[type='submit'] {
 .explore__list {
 	position: absolute;
 	background: $white;
-    color: $black-3;
-    width: 40px;
-    padding: 3px;
+	color: $black-3;
+	width: 40px;
+	padding: 3px;
 }
 .explore__lang-drop {
 	@include make-center;
 	align-items: center;
 }
 .explore__arow {
-	margin-left: 10px;	
+	margin-left: 10px;
 }
 .explore--lang {
 	width: 103px;

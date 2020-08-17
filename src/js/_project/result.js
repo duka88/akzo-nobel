@@ -6,20 +6,26 @@ const result = {
 	$imageWrap: null,
 	$upArow: null,
 	$downArow: null,
+	$resultW: null,
+	$resultO: null,
+	$resultL: null,
 	down: false,
 	startX: 0,
-	shiftX: 0,
+	strokeConst: null,
 	step: 0,
-	counter: 1,
+	counter: 0,
 	caruselCounter: 1,
 	allImgs: null,
 	caruselWidth: null,
+	questionsLength: 0,
+	results: {},
 	leyout: {},
 
 	init: function(leyout, lang) {
 		this.setVars();
 		this.getLeyout(leyout, lang);
 		this.sliderResultEvents();
+		this.setResults(leyout);
 	},
 
 	setVars: function() {
@@ -30,6 +36,10 @@ const result = {
 		this.$imageWrap = document.querySelector('.js-img-wrap');
 		this.$upArow = document.querySelector('.js-up-arow');
 		this.$downArow = document.querySelector('.js-down-arow');
+		this.$resultW = document.querySelector('.js-resut-w');
+		this.$resultO = document.querySelector('.js-resut-o');
+		this.$resultL = document.querySelector('.js-resut-l');
+		this.strokeConst = Math.round(this.$resultW.getTotalLength());
 	},
 
 	getLeyout: function(leyout, lang) {
@@ -110,19 +120,11 @@ const result = {
 				this.carusellScroll(false);
 			}
 			this.allImgs[this.caruselCounter - 1].classList.add('this.caruselCounter');
-			console.log(this.caruselCounter);
 		});
 	},
 
 	sliderResultEvents: function() {
 		this.$sliderLine.addEventListener('mousedown', (e) => {
-			this.shiftX = e.clientX - this.$sliderCircle.getBoundingClientRect().left;
-			this.down = true;
-			this.startX = e.clientX;
-		});
-
-		this.$sliderCircle.addEventListener('mousedown', (e) => {
-			this.shiftX = e.clientX - this.$sliderCircle.getBoundingClientRect().left;
 			this.down = true;
 			this.startX = e.clientX;
 		});
@@ -141,13 +143,11 @@ const result = {
 			}
 		});
 		this.$sliderLine.addEventListener('touchstart', (e) => {
-			this.shiftX = e.targetTouches[0].clientX - this.$sliderCircle.getBoundingClientRect().left;
 			this.down = true;
 			this.startX = e.targetTouches[0].clientX;
 		});
 
 		this.$sliderCircle.addEventListener('touchstart', (e) => {
-			this.shiftX = e.targetTouches[0].clientX - this.$sliderCircle.getBoundingClientRect().left;
 			this.down = true;
 			this.startX = e.targetTouches[0].clientX;
 		});
@@ -179,29 +179,101 @@ const result = {
 
 	moveSlider: function(x) {
 		const calcX = Math.round(this.startX - x);
-		let newLeft = x - this.shiftX - this.$sliderLine.getBoundingClientRect().left;
-		if (newLeft < 0) {
-			newLeft = 0;
-		}
-		const rightEdge = this.$sliderLine.offsetWidth - this.$sliderCircle.offsetWidth;
-		if (newLeft > rightEdge) {
-			newLeft = rightEdge;
-		}
-		if (calcX < - 30) {
+
+		if (calcX < - ((this.$sliderLine.offsetWidth / 7) - this.$sliderCircle.offsetWidth / 2)) {
 			this.startX = x;
 			this.counter++;
-		} else if (calcX > 30) {
+		} else if (calcX > ((this.$sliderLine.offsetWidth / 7) - this.$sliderCircle.offsetWidth / 2)) {
 			this.startX = x;
 			this.counter--;
 		}
-		if (this.counter < 1) {
-			this.counter = 1;
+		if (this.counter < 0) {
+			this.counter = 0;
 		}
-		if (this.counter > 9) {
-			this.counter = 9;
+		if (this.counter > 8) {
+			this.counter = 8;
 		}
+		this.$sliderCircle.style.left = 100 / 9 * this.counter + '%';
+		this.resultCalc(this.counter + 1);
+		this.strokeCircls();
+	},
 
-		this.$sliderCircle.style.left = newLeft + 'px';
+	setResults: function(leyout) {
+		const results = JSON.parse(localStorage.getItem('answers'));
+		this.results = results.results;
+		this.questionsLength = results.answers.length;
+		this.results['warmProcent'] = 1 - this.results.warm / (this.questionsLength * 100);
+		this.results['openProcent'] = 1 - this.results.open / (this.questionsLength * 100);
+		this.results['lightProcent'] = 1 - this.results.light / (this.questionsLength * 100);
+		this.counter = leyout - 1;
+		this.resultCalc(leyout);
+		this.calculateResult();
+		this.strokeCircls();
+		this.$sliderCircle.style.left = 100 / 9 * this.counter + '%';
+	},
+
+	calculateResult: function() {
+		this.$resultW.style.strokeDasharray = this.strokeConst + 'px';
+		this.$resultO.style.strokeDasharray = this.strokeConst + 'px';
+		this.$resultL.style.strokeDasharray = this.strokeConst + 'px';
+	},
+
+	strokeCircls: function() {
+		this.$resultL.style.strokeDashoffset = - this.strokeConst * this.results['lightProcent'] + 'px';
+		this.$resultO.style.strokeDashoffset = - this.strokeConst * this.results['openProcent'] + 'px';
+		this.$resultW.style.strokeDashoffset = - this.strokeConst * this.results['warmProcent'] + 'px';
+	},
+
+	resultCalc: function(n) {
+		console.log(n);
+		switch (n) {
+			case n = 1:
+				this.results['warmProcent'] = 0;
+				this.results['openProcent'] = 1;
+				this.results['lightProcent'] = 1;
+				break;
+			case n = 2:
+				this.results['warmProcent'] = 0.3;
+				this.results['openProcent'] = 0.7;
+				this.results['lightProcent'] = 1;
+				break;
+			case n = 3:
+				this.results['warmProcent'] = 0.4;
+				this.results['openProcent'] = 0.8;
+				this.results['lightProcent'] = 0.8;
+				break;
+			case n = 4:
+				this.results['warmProcent'] = 0.7;
+				this.results['openProcent'] = 0.3;
+				this.results['lightProcent'] = 1;
+				break;
+			case n = 5:
+				this.results['warmProcent'] = 1;
+				this.results['openProcent'] = 0;
+				this.results['lightProcent'] = 1;
+				break;
+			case n = 6:
+				this.results['warmProcent'] = 1;
+				this.results['openProcent'] = 0.3;
+				this.results['lightProcent'] = 0.7;
+				break;
+			case n = 7:
+				this.results['warmProcent'] = 0.8;
+				this.results['openProcent'] = 0.8;
+				this.results['lightProcent'] = 0.4;
+				break;
+			case n = 8:
+				this.results['warmProcent'] = 1;
+				this.results['openProcent'] = 0.7;
+				this.results['lightProcent'] = 0.3;
+				break;
+			case n = 9:
+				this.results['warmProcent'] = 1;
+				this.results['openProcent'] = 1;
+				this.results['lightProcent'] = 0;
+				break;
+			default:
+		}
 	}
 };
 
