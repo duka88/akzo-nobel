@@ -4,25 +4,53 @@
 .result {
 	width: 100%;
 	height: 100vh;
-	background: $result1-bg;
 	color: $white;
 	position: relative;
 	overflow: hidden;
 	@include make-between;
 	flex-direction: column;
 	align-items: flex-end;
-	@include media-breakpoint-down(sm) {
+	transition: 0.2s ease-in-out;
+	transition-property: background-color;
+	@include media-breakpoint-down(md) {
 		flex-direction: row-reverse;
 		justify-content: center;
 		overflow-y: auto;
 	}
+}
+.result--1 {
+	background-color: $result1-bg;
+}
+.result--2 {
+	background-color: $result2-bg;
+}
+.result--3 {
+	background-color: $result3-bg;
+}
+.result--4 {
+	background-color: $result4-bg;
+}
+.result--5 {
+	background-color: $result5-bg;
+}
+.result--6 {
+	background-color: $result6-bg;
+}
+.result--7 {
+	background-color: $result7-bg;
+}
+.result--8 {
+	background-color: $result8-bg;
+}
+.result--9 {
+	background-color: $result9-bg;
 }
 .quiz__logo-wrap--results {
 	@include media-breakpoint-down(lg) {
 		left: 18px;
 		top: 6px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		left: -1px;
 		top: 7px;
 		.quiz__logo {
@@ -42,9 +70,13 @@
 		max-width: 429px;
 		padding: 0 14px 0 0;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		width: 100%;
 		order: 3;
+		max-width: unset;
+		padding: 0 30px;
+	}
+	@include media-breakpoint-down(sm) {
 		padding: 0 8px 0 0;
 	}
 }
@@ -56,23 +88,23 @@
 	@include media-breakpoint-down(lg) {
 		padding-top: 20px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		order: 1;
 		padding-top: 21px;
 	}
 }
 .result__text-wrap--mob2 {
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		order: 4;
 	}
 }
 .result__text-wrap--mob3 {
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		order: 3;
 	}
 }
 .result__text-wrap--mob4 {
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		order: 5;
 	}
 }
@@ -86,7 +118,7 @@
 	@include media-breakpoint-down(lg) {
 		max-width: 375px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		margin-left: -2px;
 	}
 }
@@ -96,12 +128,12 @@
 	padding-left: 18px;
 	margin-top: 22px;
 	@include media-breakpoint-down(xl) {
-		margin-top: 22px;
+		margin-top: 28px;
 	}
 	@include media-breakpoint-down(lg) {
 		margin-top: 22px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		margin-top: 14px;
 		padding-left: 13px;
 	}
@@ -124,7 +156,7 @@
 	position: absolute;
 	top: 50%;
 	left: 0;
-	transform: translate(50%, -50%);
+	transform: translate(-50%, -50%);
 	transition: 0.2s linear;
 	transition-property: left;
 	@include make-center;
@@ -207,9 +239,9 @@
 		margin-top: 40px;
 	}
 	@include media-breakpoint-down(lg) {
-		margin-top: 20px;
+		margin-top: 21px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		margin: -170px 0 0 16px;
 	}
 }
@@ -227,7 +259,7 @@
 		margin: -3px 0 0 7px;
 		line-height: 10px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		margin: -1px 0 0 10px;
 	}
 }
@@ -247,9 +279,9 @@
 		font-size: 130px;
 		line-height: 100px;
 		letter-spacing: 1.5px;
-		margin: 16px 0 0;
+		margin: 0;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		font-size: 80px;
 		line-height: 65px;
 		margin: 21px 0 20px;
@@ -273,9 +305,10 @@
 		max-width: 350px;
 		font-size: 14px;
 		line-height: 18px;
-		margin: -29px 0 0 70px;
+		margin: -3px 0 0 70px;
+		letter-spacing: 0.4px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		max-width: 97%;
 		margin-left: 11px;
 		margin-top: 19px;
@@ -288,7 +321,7 @@
 		font-size: 22px;
 		line-height: 22px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		font-size: 18px;
 		line-height: 20px;
 	}
@@ -336,6 +369,18 @@
 .result__progres-bar-wrap {
 	width: 45px;
 	height: 45px;
+	overflow: visible;
+	&:not(:root) {
+		overflow: visible;
+	}
+	@include media-breakpoint-down(xl) {
+		width: 35px;
+		height: 35px;
+	}
+	@include media-breakpoint-down(lg) {
+		width: 24px;
+		height: 24px;
+	}
 }
 .result__letter {
 	text-align: center;
@@ -355,10 +400,10 @@
 		margin: 0 0 0 93px;
 	}
 	@include media-breakpoint-down(lg) {
-		margin: 43px 0 0 62px;
+		margin: 65px 0 0 62px;
 		max-width: 313px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		margin: -6px 0 0 9px;
 		max-width: 97%;
 	}
@@ -372,7 +417,7 @@
 	@include media-breakpoint-down(lg) {
 		width: 126px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		width: 86px;
 	}
 }
@@ -381,7 +426,7 @@
 	@include media-breakpoint-down(lg) {
 		width: 157px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		width: 147px;
 	}
 }
@@ -416,7 +461,7 @@
 		font-size: 11px;
 		line-height: 12px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		font-size: 10px;
 		line-height: 12px;
 		max-width: 58px;
@@ -431,7 +476,7 @@
 	@include media-breakpoint-down(lg) {
 		margin: 0 0 24px 17px;
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		margin: 15px 0 17px 10px;
 	}
 }

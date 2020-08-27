@@ -1,4 +1,5 @@
 const result = {
+	$resultBody: null,
 	$sliderCircle: null,
 	$sliderLine: null,
 	$resultHeading: null,
@@ -9,8 +10,10 @@ const result = {
 	$resultW: null,
 	$resultO: null,
 	$resultL: null,
+	$resultLines: null,
 	down: false,
 	startX: 0,
+	carusell: {down: false, isMove: false, startX: 0, moveX: 0},
 	strokeConst: null,
 	step: 0,
 	counter: 0,
@@ -19,13 +22,12 @@ const result = {
 	caruselWidth: null,
 	questionsLength: 0,
 	results: {},
+	leyouts: {},
 	leyout: {},
 
 	init: function(leyout, lang) {
 		this.setVars();
 		this.getLeyout(leyout, lang);
-		this.sliderResultEvents();
-		this.setResults(leyout);
 	},
 
 	setVars: function() {
@@ -39,31 +41,42 @@ const result = {
 		this.$resultW = document.querySelector('.js-resut-w');
 		this.$resultO = document.querySelector('.js-resut-o');
 		this.$resultL = document.querySelector('.js-resut-l');
-		this.strokeConst = Math.round(this.$resultW.getTotalLength());
+		this.$resultLines = document.querySelectorAll('.js-result-line');
+		if (window.innerWidth > 769) {
+			this.strokeConst = Math.round(this.$resultW.getTotalLength());
+		}
+		this.$resultBody = document.querySelector('.js-result-body');
 	},
 
 	getLeyout: function(leyout, lang) {
 		fetch(`json/${lang}/result.json`)
 			.then(response => response.json())
 			.then((data) => {
-				this.leyout = data.results.find(el => el.id === leyout);
-				this.setLeyout();
+				this.leyouts = data.results;
+				this.leyout = leyout;
+				this.setLeyout(this.currentLeyout());
 				this.carusellInit();
+				this.sliderResultEvents();
+				this.setResults(leyout);
 			});
 	},
-
-	setLeyout: function() {
-		this.$resultHeading.innerHTML = this.leyout.heading;
-		this.$resultText.innerText = this.leyout.text;
-		this.setImg();
+	currentLeyout() {
+		return this.leyouts.find(el => el.id === this.leyout);
 	},
 
-	setImg: function() {
-		let html = `<div class="result__main-img js-slider-img" style="background-image: url('${this.leyout.images[this.leyout.images.length - 1]}');"></div>`;
-		this.leyout.images.forEach((item)=>{
+	setLeyout: function(leyout) {
+		this.$resultHeading.innerHTML = leyout.heading;
+		this.$resultText.innerText = leyout.text;
+		this.$resultBody.classList.add(`result--${this.leyout}`);
+		this.setImg(leyout);
+	},
+
+	setImg: function(leyout) {
+		let html = `<div class="result__main-img js-slider-img" style="background-image: url('${leyout.images[leyout.images.length - 1]}');"></div>`;
+		leyout.images.forEach((item)=>{
 			html += `<div class="result__main-img js-slider-img" style="background-image: url('${item}');"></div>`;
 		});
-		html += `<div class="result__main-img js-slider-img" style="background-image: url('${this.leyout.images[0]}');"></div>`;
+		html += `<div class="result__main-img js-slider-img" style="background-image: url('${leyout.images[0]}');"></div>`;
 		this.$imageWrap.innerHTML = html;
 		this.allImgs = document.querySelectorAll('.js-slider-img');
 	},
@@ -81,6 +94,16 @@ const result = {
 			this.$imageWrap.classList.add('carusell-slide');
 		}
 		this.$imageWrap.style.transform = `translateX(-${this.caruselWidth * this.caruselCounter}px)`;
+	},
+
+	scrolle: function() {
+		if (this.carusell.isMove) {
+			if (this.carusell.startX < this.carusell.moveX) {
+				this.carusellScrollRight();
+			} else if (this.carusell.startX > this.carusell.moveX) {
+				this.carusellScrollLeft();
+			}
+		}
 	},
 
 	carusellScrollLeft: function() {
@@ -121,6 +144,58 @@ const result = {
 			}
 			this.allImgs[this.caruselCounter - 1].classList.add('this.caruselCounter');
 		});
+
+		this.$imageWrap.addEventListener('mousedown', (e) => {
+			this.carusell.down = true;
+			this.carusell.startX = e.clientX;
+			this.carusell.moveX = e.clientX;
+			this.$imageWrap.classList.add('grab');
+			console.log(this.carusell);
+
+		});
+
+		this.$imageWrap.addEventListener('mousemove', (e) => {
+			if (!this.carusell.down) return;
+			this.carusell.moveX = e.clientX;
+			if (Math.abs(this.carusell.startX - this.carusell.moveX) > 50) {
+				this.carusell.isMove = true;
+			}
+
+		});
+
+		this.$imageWrap.addEventListener('mouseup', () => {
+			this.carusell.down = false;
+			this.$imageWrap.classList.remove('grab');
+			this.scrolle();
+		});
+
+		this.$imageWrap.addEventListener('touchstart', (e) => {
+			this.carusell.down = true;
+			this.carusell.startX = e.targetTouches[0].clientX;
+			this.carusell.moveX = e.targetTouches[0].clientX;
+
+		});
+
+		this.$imageWrap.addEventListener('touchmove', (e) => {
+			if (!this.carusell.down) return;
+			e.preventDefault();
+			this.carusell.moveX = e.targetTouches[0].clientX;
+			if (Math.abs(this.carusell.startX - this.carusell.moveX) > 50) {
+				this.carusell.isMove = true;
+			}
+		});
+
+		this.$imageWrap.addEventListener('touchend', () => {
+			this.carusell.down = false;
+			this.scrolle();
+
+		});
+
+		this.$imageWrap.addEventListener('mouseleave', () => {
+			this.carusell.down = false;
+			this.$imageWrap.classList.remove('grab');
+		});
+
 	},
 
 	sliderResultEvents: function() {
@@ -129,7 +204,7 @@ const result = {
 			this.startX = e.clientX;
 		});
 
-		this.$sliderCircle.addEventListener('mouseup', () => {
+		document.body.addEventListener('mouseup', () => {
 			this.down = false;
 		});
 
@@ -142,6 +217,18 @@ const result = {
 				this.moveSlider(e.clientX);
 			}
 		});
+
+		this.$sliderCircle.addEventListener('mousedown', (e) => {
+			this.down = true;
+			this.startX = e.clientX;
+		});
+
+		this.$sliderCircle.addEventListener('mousemove', (e) => {
+			if (this.down) {
+				this.moveSlider(e.clientX);
+			}
+		});
+
 		this.$sliderLine.addEventListener('touchstart', (e) => {
 			this.down = true;
 			this.startX = e.targetTouches[0].clientX;
@@ -152,25 +239,16 @@ const result = {
 			this.startX = e.targetTouches[0].clientX;
 		});
 
-		this.$sliderCircle.addEventListener('touchend', () => {
+		document.body.addEventListener('touchend', () => {
 			this.down = false;
 		});
 
-		this.$sliderLine.addEventListener('touchend', () => {
-			this.down = false;
-		});
-
-		this.$sliderLine.addEventListener('leave', () => {
-			this.down = false;
-		});
-
-		this.$sliderCircle.addEventListener('touchmove', (e) => {
+		this.$sliderLine.addEventListener('touchmove', (e) => {
 			if (this.down) {
 				this.moveSlider(e.targetTouches[0].clientX);
 			}
 		});
-
-		this.$sliderLine.addEventListener('touchmove', (e) => {
+		this.$sliderCircle.addEventListener('touchmove', (e) => {
 			if (this.down) {
 				this.moveSlider(e.targetTouches[0].clientX);
 			}
@@ -179,7 +257,7 @@ const result = {
 
 	moveSlider: function(x) {
 		const calcX = Math.round(this.startX - x);
-
+		this.$resultBody.classList.remove(`result--${this.counter + 1}`);
 		if (calcX < - ((this.$sliderLine.offsetWidth / 7) - this.$sliderCircle.offsetWidth / 2)) {
 			this.startX = x;
 			this.counter++;
@@ -193,8 +271,12 @@ const result = {
 		if (this.counter > 8) {
 			this.counter = 8;
 		}
-		this.$sliderCircle.style.left = 100 / 9 * this.counter + '%';
-		this.resultCalc(this.counter + 1);
+		const slidePosition = this.$sliderLine.getBoundingClientRect().right;
+		const linePosition = this.$resultLines[8 - this.counter].getBoundingClientRect().right;
+		this.$sliderCircle.style.left = slidePosition - linePosition + 'px';
+		this.leyout = this.counter + 1;
+		this.resultCalc(this.leyout);
+		this.setLeyout(this.currentLeyout());
 		this.strokeCircls();
 	},
 
@@ -225,7 +307,6 @@ const result = {
 	},
 
 	resultCalc: function(n) {
-		console.log(n);
 		switch (n) {
 			case n = 1:
 				this.results['warmProcent'] = 0;

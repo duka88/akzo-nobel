@@ -87,6 +87,18 @@
 	transition: 0.4s ease-in-out;
 	transition-property: transform;
 }
+.mobile-break {
+	display: none;
+	@include media-breakpoint-down(md) {
+		display: block;
+	}
+	@media only screen and (max-height: $max-height-tablet) {
+		display: none;
+	}
+	@include media-breakpoint-down(xsm) {
+		display: none;
+	}
+}
 
 // Theming and colors iterator
 @each $colors-name in $site-colors {

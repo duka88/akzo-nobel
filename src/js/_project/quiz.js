@@ -1,4 +1,5 @@
 import result from '../_project/result';
+import resultHtml from '../_project/resultHtml';
 const quiz = {
 	$mainConteiner: document.querySelector('.js-main'),
 	$mainQuizConteiner: null,
@@ -85,7 +86,7 @@ const quiz = {
 	crateProgresBar: function() {
 		let html = '';
 		for (let n = 0; n < this.questions.length; n++) {
-			html += '<p class="quiz__status-single js-status"></p>';
+			html += `<p class="quiz__status-single js-status" style="width: calc(${100 / this.questions.length}% - 6px)"></p>`;
 		}
 		this.$quizStatusBar.innerHTML = html;
 		this.$quizStatus = document.querySelectorAll('.js-status');
@@ -392,18 +393,19 @@ const quiz = {
 	},
 
 	scrollScreen: function() {
-		if (window.innerWidth < 588) {
+		if (window.innerWidth < 769) {
+			const margin = this.$quizScrollCont.style.margin;
 			this.$questionCont.addEventListener('touchstart', (e)=>{
 				this.tuchPosition = e.targetTouches[0].clientY;
 			});
 			this.$questionCont.addEventListener('touchmove', (e) => {
 				if (this.tuchPosition && !this.$quizSlider.contains(e.target)) {
 					if (this.tuchPosition > e.targetTouches[0].clientY) {
-						this.$quizScrollCont.style.marginTop = `-${this.$quizScrollCont.offsetHeight + 27}px`;
+						this.$quizScrollCont.style.marginTop = `-${this.$quizScrollCont.offsetHeight + 50}px`;
 						this.$mainQuizConteiner.classList.add('quiz--down');
 						this.tuchPosition = e.targetTouches[0].clientY;
 					} else {
-						this.$quizScrollCont.style.marginTop = '125px';
+						this.$quizScrollCont.style.margin = margin;
 						this.$mainQuizConteiner.classList.remove('quiz--down');
 						this.tuchPosition = e.targetTouches[0].clientY;
 					}
@@ -414,15 +416,10 @@ const quiz = {
 	},
 
 	fetchResult: function() {
-		fetch('/dist/results.html')
-			.then(response => response.text())
-			.then((data) => {
-				const height = this.$mainConteiner.clientHeight;
-				this.$mainConteiner.innerHTML += data;
-				result.init(this.answers.layout, this.lang);
-				this.$mainConteiner.style.transform = `translateY(-${height}px)`;
-			});
-
+		const height = this.$mainConteiner.clientHeight;
+		this.$mainConteiner.innerHTML += resultHtml;
+		result.init(this.answers.layout, this.lang);
+		this.$mainConteiner.style.transform = `translateY(-${height}px)`;
 	},
 
 	quizinit: function() {

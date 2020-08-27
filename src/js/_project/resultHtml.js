@@ -1,4 +1,4 @@
-const resultHtml = `<section class="result">
+const resultHtml = `<section class="result result--1 js-result-body">
 						<figure class="quiz__logo-wrap quiz__logo-wrap--results">
 							<img class="quiz__logo" src="assets/images/logo.png" alt="logo">
 						</figure>
@@ -18,20 +18,21 @@ const resultHtml = `<section class="result">
 								<div class="result__range-slider ">
 									<div class="result__line-bar">
 										<div class="result__line-wrap js-line-slider">
-											<div class="result__line"></div>
-											<div class="result__line"></div>
-											<div class="result__line"></div>
-											<div class="result__line"></div>
-											<div class="result__line"></div>
-											<div class="result__line"></div>
-											<div class="result__line"></div>
-											<div class="result__line"></div>
-											<div class="result__line"></div>
+											<div class="result__line js-result-line"></div>
+											<div class="result__line js-result-line"></div>
+											<div class="result__line js-result-line"></div>
+											<div class="result__line js-result-line"></div>
+											<div class="result__line js-result-line"></div>
+											<div class="result__line js-result-line"></div>
+											<div class="result__line js-result-line"></div>
+											<div class="result__line js-result-line"></div>
+											<div class="result__line js-result-line"></div>
+											<div class="result__circle js-slider-dot">
+												<div class="result__circle-inner"></div>
+											</div>
 										</div>
 									</div>
-									<div class="result__circle js-slider-dot">
-										<div class="result__circle-inner"></div>
-									</div>
+
 								</div>
 								<div class="result__range-slider-info">
 									<figure class="result__range-slider-icon">

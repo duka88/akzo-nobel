@@ -49,7 +49,7 @@ input[type='submit'] {
 		margin-bottom: 4px;
 	}
 	@include media-breakpoint-down(lg) {
-		width: 138px;
+		width: 139px;
 		height: 37px;
 		font-size: 10px;
 		line-height: 10px;
@@ -67,7 +67,7 @@ input[type='submit'] {
 		font-family: $font-default-bold;
 	}
 	@include media-breakpoint-down(lg) {
-		margin-right: 8px;
+		margin-right: 9px;
 	}
 }
 .explore__icon {
@@ -90,11 +90,23 @@ input[type='submit'] {
 }
 .explore__arow {
 	margin-left: 10px;
+	@include media-breakpoint-down(lg) {
+		margin-left: 5px;
+	}
 }
 .explore--lang {
 	width: 103px;
 	.explore__icon {
 		margin-right: 10px;
+	}
+	@include media-breakpoint-down(lg) {
+		.explore__icon {
+			margin-right: 8px;
+			width: 18px;
+		}
+		.explore__explore-text {
+			margin-right: 0;
+		}
 	}
 }
 .explore--start {

@@ -248,7 +248,7 @@
 	@include media-breakpoint-down(lg) {
 		width: 24px;
 	}
-	@include media-breakpoint-down(lg) {
+	@include media-breakpoint-down(md) {
 		width: 26px;
 	}
 }
@@ -288,7 +288,7 @@
 	}
 }
 .guiz__progres-bar-wrap {
-	transform: rotate(131deg);
+	transform: rotate(127deg);
 	height: 270px;
 	width: 270px;
 	@include media-breakpoint-down(lg) {
@@ -374,7 +374,7 @@
 	width: 35px;
 	height: 35px;
 	border-radius: 50%;
-	left: 83px;
+	left: 97px;
 	bottom: 22px;
 	box-shadow: inset 0 2px 3px 1px rgba(0, 0, 0, 0.203521);
 	@include media-breakpoint-down(lg) {

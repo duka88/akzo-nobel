@@ -16,7 +16,7 @@
 		max-width: 595px;
 
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		width: 100%;
 		flex-direction: column-reverse;
 		order: 2;
@@ -36,7 +36,7 @@
 	@include media-breakpoint-down(lg) {
 		width: calc(100% - 22px);
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		width: 100%;
 	}
 }
@@ -44,6 +44,7 @@
 	display: flex;
 	align-items: center;
 	height: 100%;
+	max-height: 77vh;
 }
 .result__main-img {
 	min-width: 100%;
@@ -61,18 +62,19 @@
 .result__nav-img-wrap {
 	position: fixed;
 	right: 0;
-	top: 50%;
-	transform: translateY(5%);
+	//top: 50%;
+	bottom: 13%;
+	//transform: translateY(5%);
 	display: flex;
 	height: 383px;
 	width: 545px;
 	@include media-breakpoint-down(xl) {
 		height: 341px;
-		right: -48px;
-		transform: translateY(9%);
+		right: -47px;
+		bottom: 14%;
 	}
 	@include media-breakpoint-down(lg) {
-		height: 255px;
+		height: 253px;
 		right: -177px;
 	}
 }
@@ -90,10 +92,14 @@
 	z-index: 2;
 	background-image: url('/dist/assets/images/results/slider-img2.png');
 	@include media-breakpoint-down(xl) {
-		width: 264px;
+		left: 10px;
+		width: 257px;
+		bottom: -4px;
 	}
 	@include media-breakpoint-down(lg) {
 		width: 194px;
+		left: 0;
+		bottom: 1px;
 	}
 }
 .result__nav-img--2 {
@@ -104,7 +110,7 @@
 	background-image: url('/dist/assets/images/results/slider-img3.png');
 	@include media-breakpoint-down(xl) {
 		width: 256px;
-		left: 245px;
+		left: 243px;
 		bottom: 120px;
 	}
 	@include media-breakpoint-down(lg) {
@@ -117,13 +123,17 @@
 	width: 100%;
 	height: 106px;
 	display: flex;
+
 	@include media-breakpoint-down(xl) {
 		height: 95px;
 	}
 	@include media-breakpoint-down(lg) {
 		height: 69px;
 	}
-	@include media-breakpoint-down(sm) {
+	@media only screen and (max-height: $max-height-laptop) {
+		height: 69px;
+	}
+	@include media-breakpoint-down(md) {
 		height: 37px;
 	}
 }
@@ -137,14 +147,17 @@
 	position: relative;
 	z-index: 9;
 	@include media-breakpoint-down(xl) {
-		height: 81px;
-		padding-right: 43px;
-		margin-top: 148px;
+		height: 80px;
+		padding-right: 44px;
+		margin-top: 207px;
 	}
 	@include media-breakpoint-down(lg) {
 		height: 69px;
 		padding-right: 38px;
-		margin-top: 119px;
+		margin-top: 158px;
+	}
+	@media only screen and (max-height: $max-height-laptop) {
+		margin-top: 90px;
 	}
 }
 .result__nav-arow {
@@ -182,7 +195,7 @@
 	background: $result1-color-sample6;
 }
 .mobile-hide {
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		display: none;
 	}
 }
